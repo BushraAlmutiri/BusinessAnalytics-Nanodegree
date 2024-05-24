@@ -1,0 +1,202 @@
+/* 1 */
+
+
+
+
+
+
+
+SELECT 
+
+    Customer.FirstName AS CustomerFirstName,
+
+    Customer.LastName AS CustomerLastName,
+
+    COUNT(InvoiceLine.TrackId) AS TotalTracksPurchased
+
+FROM 
+
+    Customer
+
+JOIN 
+
+    Invoice ON Customer.CustomerId = Invoice.CustomerId
+
+JOIN 
+
+    InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+
+GROUP BY 
+
+    Customer.CustomerId
+
+ORDER BY 
+
+    TotalTracksPurchased DESC
+
+LIMIT 10;
+
+
+
+
+ 
+
+
+
+
+/* 2 */
+
+
+
+
+
+
+SELECT 
+    Genre.Name AS GenreName,
+    SUM(Track.UnitPrice * InvoiceLine.Quantity) AS TotalRevenue
+FROM 
+    Genre
+JOIN 
+    Track ON Genre.GenreId = Track.GenreId
+JOIN 
+    InvoiceLine ON Track.TrackId = InvoiceLine.TrackId
+GROUP BY 
+    Genre.GenreId
+ORDER BY 
+    TotalRevenue DESC;
+
+
+
+
+
+
+
+
+
+
+
+/* 3 */
+
+
+
+
+SELECT 
+
+    Track.Name AS TrackName,
+
+    SUM(InvoiceLine.Quantity) AS TotalSold
+
+FROM 
+
+    Track
+
+JOIN 
+
+    InvoiceLine ON Track.TrackId = InvoiceLine.TrackId
+
+GROUP BY 
+
+    Track.TrackId
+
+ORDER BY 
+
+    TotalSold DESC
+
+LIMIT 10;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 4 */
+
+
+
+
+SELECT 
+
+    Customer.FirstName AS CustomerFirstName,
+
+    Customer.LastName AS CustomerLastName,
+
+    SUM(Invoice.Total) AS TotalSales
+
+FROM 
+
+    Customer
+
+JOIN 
+
+    Invoice ON Customer.CustomerId = Invoice.CustomerId
+
+GROUP BY 
+
+    Customer.CustomerId
+
+ORDER BY 
+
+    TotalSales DESC
+
+LIMIT 5;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 5*/
+
+
+
+
+SELECT 
+
+    Artist.Name AS ArtistName,
+
+    COUNT(Track.TrackId) AS TotalTracks
+
+FROM 
+
+    Artist
+
+JOIN 
+
+    Album ON Artist.ArtistId = Album.ArtistId
+
+JOIN 
+
+    Track ON Album.AlbumId = Track.AlbumId
+
+GROUP BY 
+
+    Artist.ArtistId
+
+ORDER BY 
+
+    TotalTracks DESC
+
+LIMIT 10;
